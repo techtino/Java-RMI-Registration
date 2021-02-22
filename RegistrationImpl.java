@@ -1,6 +1,6 @@
 import java.rmi.*;
 import java.rmi.server.*;  
-import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -41,6 +41,13 @@ public class RegistrationImpl extends UnicastRemoteObject implements Registratio
     public void logData(){
         SimpleDateFormat timeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
         String timestamp = timeFormat.format(new Date());
-
+        try{
+            FileWriter writer = new FileWriter("log.txt",true);
+            writer.write(timestamp + " Username:" + getUsername() + " Password:" + getPassword() + " Email: " + getEmail() + " Address: " + getAddress() + "\n");
+            writer.close();
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }
     }
 }
