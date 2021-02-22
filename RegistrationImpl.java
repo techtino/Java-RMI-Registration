@@ -10,6 +10,7 @@ public class RegistrationImpl extends UnicastRemoteObject implements Registratio
     private String password;
     private String email;
     private String address;
+    private String status;
     RegistrationImpl()throws RemoteException{  
         super();
     }  
@@ -37,6 +38,12 @@ public class RegistrationImpl extends UnicastRemoteObject implements Registratio
     public void setAddress(String address) {
         this.address = address;
     }
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status= status;
+    }
 
     public void logData(){
         SimpleDateFormat timeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
@@ -45,9 +52,11 @@ public class RegistrationImpl extends UnicastRemoteObject implements Registratio
             FileWriter writer = new FileWriter("log.txt",true);
             writer.write(timestamp + " Username:" + getUsername() + " Password:" + getPassword() + " Email: " + getEmail() + " Address: " + getAddress() + "\n");
             writer.close();
+            setStatus("Success");
         }
         catch(IOException e){
             System.out.println(e);
+            setStatus("Failure");
         }
     }
 }

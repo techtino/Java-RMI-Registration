@@ -29,6 +29,7 @@ public class RegistrationClient{
             connection.setEmail(email.getText());
             connection.setAddress(address.getText());
             connection.logData();
+            System.out.println(connection.getStatus());
         }
         catch(Exception e){
             System.out.println(e);

@@ -10,5 +10,7 @@ public interface Registration extends Remote{
     public void setEmail(String email) throws RemoteException; 
     public String getAddress() throws RemoteException; 
     public void setAddress(String address) throws RemoteException; 
+    public String getStatus() throws RemoteException; 
+    public void setStatus(String address) throws RemoteException; 
     public void logData() throws RemoteException;
 }
