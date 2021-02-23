@@ -1,12 +1,9 @@
 import java.rmi.*;
 import java.rmi.server.*;  
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import javax.swing.*;
 
 public class RegistrationImpl extends UnicastRemoteObject implements Registration{          
     private String username;
@@ -14,6 +11,7 @@ public class RegistrationImpl extends UnicastRemoteObject implements Registratio
     private String email;
     private String address;
     private Boolean status;
+
     RegistrationImpl()throws RemoteException{  
         super();
     }  
@@ -66,17 +64,18 @@ public class RegistrationImpl extends UnicastRemoteObject implements Registratio
     public void viewLogs(){
         String line;
         int i = 0;
-        String[] array = new String[1000];
+        DefaultListModel logList = new DefaultListModel();
         try{
             FileReader fr = new FileReader("log.txt");
             BufferedReader reader = new BufferedReader(fr);
             while ((line = reader.readLine()) != null){
-                array[i] = line;
-                System.out.println(array[i]);
+                logList.addElement(line);    
                 i++;
             }
-        setStatus(true);
-        reader.close();
+            JList list = new JList(logList);
+            JOptionPane.showMessageDialog(null, new JScrollPane(list));
+            setStatus(true);
+            reader.close();
         }
         catch(Exception e){
             System.out.println(e);
