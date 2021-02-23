@@ -5,6 +5,33 @@ public class RegistrationClient{
     public static void main(String[] args){
         try{
             Registration connection=(Registration)Naming.lookup("rmi://localhost:5000/registration");  
+            connection.setStatus(false);
+            int result = JOptionPane.showOptionDialog(null, "Select a menu option", "Menu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Register", "View Logs" }, JOptionPane.NO_OPTION);
+            if (result == JOptionPane.YES_OPTION){
+                promptUserForDetails();
+            }
+            else if (result == JOptionPane.NO_OPTION){
+                System.out.println("Logs");
+                connection.viewLogs();
+            }
+            else{
+                System.exit(0);
+            }
+            if (connection.getStatus() == true){
+                JOptionPane.showMessageDialog(null, "Success");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "The process was cancelled or failed");
+            }
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    public static void promptUserForDetails(){
+        try{
+            Registration connection=(Registration)Naming.lookup("rmi://localhost:5000/registration");  
+            connection.setStatus(false);
             JTextField username = new JTextField();
             JTextField password = new JPasswordField();
             JTextField email= new JTextField();
@@ -15,23 +42,21 @@ public class RegistrationClient{
                 "Email", email,
                 "Address", address
             };
-
             int option = JOptionPane.showConfirmDialog(null, message, "Register", JOptionPane.OK_CANCEL_OPTION);
-
             if (option == JOptionPane.OK_OPTION) {
                 System.out.println("Data Sent");
+                connection.setUsername(username.getText());
+                connection.setPassword(password.getText());
+                connection.setEmail(email.getText());
+                connection.setAddress(address.getText());
+                connection.logData();
+                connection.setStatus(true);
             }
             else {
-                System.out.println("Cancelled");
+                connection.setStatus(false);
             }
-            connection.setUsername(username.getText());
-            connection.setPassword(password.getText());
-            connection.setEmail(email.getText());
-            connection.setAddress(address.getText());
-            connection.logData();
-            System.out.println(connection.getStatus());
         }
-        catch(Exception e){
+        catch (Exception e) {
             System.out.println(e);
         }
     }
