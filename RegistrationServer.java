@@ -5,7 +5,6 @@ public class RegistrationServer{
         try{
             Registration connection = new RegistrationImpl();
             Naming.rebind("rmi://localhost:5000/registration",connection);
-            System.out.println("Server waiting for requests...");
         }
         catch (Exception e)
         {

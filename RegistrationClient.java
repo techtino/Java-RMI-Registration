@@ -9,9 +9,9 @@ public class RegistrationClient{
             int result = JOptionPane.showOptionDialog(null, "Select a menu option", "Menu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Register", "View Logs" }, JOptionPane.NO_OPTION);
             if (result == JOptionPane.YES_OPTION){
                 promptUserForDetails();
+                connection.logData();
             }
             else if (result == JOptionPane.NO_OPTION){
-                System.out.println("Logs");
                 connection.viewLogs();
             }
             else{
@@ -44,13 +44,10 @@ public class RegistrationClient{
             };
             int option = JOptionPane.showConfirmDialog(null, message, "Register", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                System.out.println("Data Sent");
                 connection.setUsername(username.getText());
                 connection.setPassword(password.getText());
                 connection.setEmail(email.getText());
                 connection.setAddress(address.getText());
-                connection.logData();
-                connection.setStatus(true);
             }
             else {
                 connection.setStatus(false);
