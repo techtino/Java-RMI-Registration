@@ -1,6 +1,7 @@
 import java.rmi.*;
 
 public interface Registration extends Remote{
+    // base definitions that throw RemoteExceptions
     public String getUsername() throws RemoteException;
     public void setUsername(String username) throws RemoteException;
     public String getPassword() throws RemoteException; 

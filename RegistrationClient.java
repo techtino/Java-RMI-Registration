@@ -4,8 +4,13 @@ import javax.swing.*;
 public class RegistrationClient{
     public static void main(String[] args){
         try{
+            //lookup and connection to RMI server is created based on RMIRegistry
             Registration connection=(Registration)Naming.lookup("rmi://localhost:5000/registration");  
+            
+            //set status to false as a reset for start of client
             connection.setStatus(false);
+            
+            //GUI for menu is showed and functions per option specified
             int result = JOptionPane.showOptionDialog(null, "Select a menu option", "Menu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Register", "View Logs" }, JOptionPane.NO_OPTION);
             if (result == JOptionPane.YES_OPTION){
                 promptUserForDetails();
@@ -17,6 +22,8 @@ public class RegistrationClient{
             else{
                 System.exit(0);
             }
+
+            //Returns the status set by remote functions to ensure program functioned correctly
             if (connection.getStatus() == true){
                 JOptionPane.showMessageDialog(null, "Success");
             }
@@ -32,6 +39,8 @@ public class RegistrationClient{
         try{
             Registration connection=(Registration)Naming.lookup("rmi://localhost:5000/registration");  
             connection.setStatus(false);
+            
+            // definition of variables for GUI user prompt
             JTextField username = new JTextField();
             JTextField password = new JPasswordField();
             JTextField email= new JTextField();
@@ -42,6 +51,8 @@ public class RegistrationClient{
                 "Email", email,
                 "Address", address
             };
+
+            // Confirm dialog for entering details and run remote functions.
             int option = JOptionPane.showConfirmDialog(null, message, "Register", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
                 connection.setUsername(username.getText());
