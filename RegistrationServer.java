@@ -3,6 +3,8 @@ import java.rmi.registry.*;
 public class RegistrationServer{
     public static void main(String[] args){
         try{
+            //Define securitymanager
+            System.setSecurityManager( new RMISecurityManager() );
             //RegistrationImpl to encapsulate in RMI naming system
             Registration connection = new RegistrationImpl();
             //Binds the implementation to the RMI remote address

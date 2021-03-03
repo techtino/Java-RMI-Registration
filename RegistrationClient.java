@@ -4,6 +4,8 @@ import javax.swing.*;
 public class RegistrationClient{
     public static void main(String[] args){
         try{
+            //define securitymanager
+            System.setSecurityManager( new RMISecurityManager() );
             //lookup and connection to RMI server is created based on RMIRegistry
             Registration connection=(Registration)Naming.lookup("rmi://localhost:5000/registration");  
             
@@ -14,7 +16,6 @@ public class RegistrationClient{
             int result = JOptionPane.showOptionDialog(null, "Select a menu option", "Menu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Register", "View Logs" }, JOptionPane.NO_OPTION);
             if (result == JOptionPane.YES_OPTION){
                 promptUserForDetails();
-                connection.logData();
             }
             else if (result == JOptionPane.NO_OPTION){
                 connection.viewLogs();
@@ -59,6 +60,7 @@ public class RegistrationClient{
                 connection.setPassword(password.getText());
                 connection.setEmail(email.getText());
                 connection.setAddress(address.getText());
+                connection.logData();
             }
             else {
                 connection.setStatus(false);
