@@ -4,7 +4,7 @@ import javax.swing.*;
 public class RegistrationClient{
     public static void main(String[] args){
         try{
-            //define securitymanager
+            //Define securitymanager
             System.setSecurityManager( new RMISecurityManager() );
             //lookup and connection to RMI server is created based on RMIRegistry
             Registration connection=(Registration)Naming.lookup("rmi://localhost:5000/registration");  
